@@ -741,6 +741,10 @@ const TRANSLATIONS = {
         title: "支援信箱",
         description: "設定使用者在需要幫助時可以聯繫的支援電子信箱。",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "應用名稱",
         description: "設定所有使用者在登入頁面上看到的應用名稱。",

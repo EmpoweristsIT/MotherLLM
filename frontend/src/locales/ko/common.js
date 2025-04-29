@@ -459,6 +459,10 @@ const TRANSLATIONS = {
         description:
           "사용자가 도움이 필요할 때 접근할 수 있는 지원 이메일 주소를 설정하세요.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "이름",
         description:

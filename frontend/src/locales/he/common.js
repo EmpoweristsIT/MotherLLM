@@ -456,6 +456,10 @@ const TRANSLATIONS = {
         description:
           "הגדר את כתובת האימייל לתמיכה שתהיה נגישה למשתמשים כאשר הם זקוקים לעזרה.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "שם",
         description: "הגדר שם שיוצג בדף ההתחברות לכל המשתמשים.",

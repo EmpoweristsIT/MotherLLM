@@ -441,6 +441,10 @@ const TRANSLATIONS = {
         title: "客服邮箱",
         description: "设置用户在需要帮助时可联系的客服邮箱地址。",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "名称",
         description: "设置所有用户在登录页面看到的名称。",

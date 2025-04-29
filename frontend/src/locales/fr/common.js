@@ -798,6 +798,10 @@ const TRANSLATIONS = {
         description:
           "Définissez l'adresse e-mail de support affichée aux utilisateurs.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "Nom de l'application",
         description: "Définissez le nom affiché dans l'interface.",

@@ -459,6 +459,10 @@ const TRANSLATIONS = {
         title: "Email de Suporte",
         description: "Defina o email de suporte acessível aos usuários.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "Nome",
         description:

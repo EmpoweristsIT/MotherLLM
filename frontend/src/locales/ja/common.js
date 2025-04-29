@@ -769,6 +769,10 @@ const TRANSLATIONS = {
         title: null,
         description: null,
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: null,
         description: null,

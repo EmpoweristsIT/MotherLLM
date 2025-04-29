@@ -24,6 +24,7 @@ const SystemSettings = {
   publicFields: [
     "footer_data",
     "support_email",
+    "sso_url",
     "text_splitter_chunk_size",
     "text_splitter_chunk_overlap",
     "max_embed_chunk_size",
@@ -42,7 +43,8 @@ const SystemSettings = {
     "telemetry_id",
     "footer_data",
     "support_email",
-
+    "sso_url",
+    
     "text_splitter_chunk_size",
     "text_splitter_chunk_overlap",
     "agent_search_provider",
