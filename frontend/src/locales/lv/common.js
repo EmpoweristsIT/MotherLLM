@@ -464,6 +464,10 @@ const TRANSLATIONS = {
         description:
           "Iestatiet atbalsta e-pasta adresi, kam lietotājiem jābūt pieejamam, kad viņiem nepieciešama palīdzība.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "Nosaukums",
         description:

@@ -14,5 +14,8 @@
 **/bundleinspector.html
 **/tmp/**
 **/.log
+**/__tests__/**
+**/*.test.js
+**/*.spec.js
 !docker/.env.example
 !frontend/.env.production

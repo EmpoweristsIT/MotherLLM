@@ -12,7 +12,7 @@ concurrency:
 
 on:
   push:
-    branches: ['1.10.0-repub'] # master branch only. Do not modify.
+    branches: ['dev-1.10.0'] # master branch only. Do not modify.
     paths-ignore:
       - '**.md'
       - '.gitmodules'

@@ -922,6 +922,10 @@ const TRANSLATIONS = {
         description:
           "Setează adresa de email de suport care ar trebui să fie accesibilă utilizatorilor atunci când au nevoie de ajutor.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "Nume aplicație",
         description:

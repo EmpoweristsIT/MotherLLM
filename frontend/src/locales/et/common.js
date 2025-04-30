@@ -450,6 +450,10 @@ const TRANSLATIONS = {
         description:
           "Määra e-posti aadress, kuhu kasutajad saavad abi saamiseks pöörduda.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "Nimi",
         description:

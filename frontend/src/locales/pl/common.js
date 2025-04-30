@@ -469,6 +469,10 @@ const TRANSLATIONS = {
         description:
           "Ustaw adres e-mail, który będzie dostępny dla użytkowników, gdy potrzebują pomocy.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "Nazwa",
         description:
