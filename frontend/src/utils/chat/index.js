@@ -167,6 +167,7 @@ export default function handleChat(
   if (action === "reset_chat") {
     // Chat was reset, keep reset message and clear everything else.
     setChatHistory([_chatHistory.pop()]);
+    window.location.reload();
   }
 
   // If thread was updated automatically based on chat prompt
