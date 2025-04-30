@@ -476,6 +476,10 @@ const TRANSLATIONS = {
         description:
           "Nastavte e-mailovou adresu podpory, která má být přístupná uživatelům, když potřebují pomoc.",
       },
+      "sso-button": {
+        title: null,
+        description: null,
+      },
       "app-name": {
         title: "Název",
         description:
