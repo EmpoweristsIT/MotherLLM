@@ -1,5 +1,8 @@
 const { Telemetry } = require("../../../models/telemetry");
 const { validApiKey } = require("../../../utils/middleware/validApiKey");
+const {
+  canUploadDocuments,
+} = require("../../../utils/middleware/validatedRequest");
 const { handleAPIFileUpload } = require("../../../utils/files/multer");
 const {
   viewLocalFiles,
@@ -25,7 +28,7 @@ function apiDocumentEndpoints(app) {
 
   app.post(
     "/v1/document/upload",
-    [validApiKey, handleAPIFileUpload],
+    [validApiKey, canUploadDocuments, handleAPIFileUpload],
     async (request, response) => {
       /*
     #swagger.tags = ['Documents']
@@ -138,7 +141,7 @@ function apiDocumentEndpoints(app) {
 
   app.post(
     "/v1/document/upload/:folderName",
-    [validApiKey, handleAPIFileUpload],
+    [validApiKey, canUploadDocuments, handleAPIFileUpload],
     async (request, response) => {
       /*
       #swagger.tags = ['Documents']
@@ -308,7 +311,7 @@ function apiDocumentEndpoints(app) {
 
   app.post(
     "/v1/document/upload-link",
-    [validApiKey],
+    [validApiKey, canUploadDocuments],
     async (request, response) => {
       /*
     #swagger.tags = ['Documents']
@@ -422,7 +425,7 @@ function apiDocumentEndpoints(app) {
 
   app.post(
     "/v1/document/raw-text",
-    [validApiKey],
+    [validApiKey, canUploadDocuments],
     async (request, response) => {
       /*
      #swagger.tags = ['Documents']
@@ -834,7 +837,7 @@ function apiDocumentEndpoints(app) {
 
   app.post(
     "/v1/document/create-folder",
-    [validApiKey],
+    [validApiKey, canUploadDocuments],
     async (request, response) => {
       /*
       #swagger.tags = ['Documents']
@@ -900,7 +903,7 @@ function apiDocumentEndpoints(app) {
 
   app.delete(
     "/v1/document/remove-folder",
-    [validApiKey],
+    [validApiKey, canUploadDocuments],
     async (request, response) => {
       /*
       #swagger.tags = ['Documents']
@@ -959,7 +962,7 @@ function apiDocumentEndpoints(app) {
 
   app.post(
     "/v1/document/move-files",
-    [validApiKey],
+    [validApiKey, canUploadDocuments],
     async (request, response) => {
       /*
       #swagger.tags = ['Documents']
