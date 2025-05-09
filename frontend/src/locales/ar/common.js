@@ -236,6 +236,16 @@ const TRANSLATIONS = {
       title: "النداء",
       description:
         "النداء التي سيتم استخدامه في مساحة العمل هذه. حدد السياق والتعليمات للذكاء الاصطناعي للاستجابة. يجب عليك تقديم نداء مصمم بعناية حتى يتمكن الذكاء الاصطناعي من إنشاء استجابة دقيقة وذات صلة.",
+      history: {
+        title: null,
+        clearAll: null,
+        noHistory: null,
+        restore: null,
+        delete: null,
+        deleteConfirm: null,
+        clearAllConfirm: null,
+        expand: null,
+      },
     },
     refusal: {
       title: "الرد على رفض وضعية الاستعلام",
@@ -682,6 +692,10 @@ const TRANSLATIONS = {
         description: null,
       },
       auto_speak: {
+        title: null,
+        description: null,
+      },
+      spellcheck: {
         title: null,
         description: null,
       },

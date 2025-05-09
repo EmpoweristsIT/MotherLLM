@@ -229,6 +229,16 @@ const TRANSLATIONS = {
       title: "Komut (Prompt)",
       description:
         "Bu çalışma alanında kullanılacak komut. Yapay zekanın yanıt üretmesi için bağlam ve talimatları tanımlayın. Uygun ve doğru yanıtlar almak için özenle hazırlanmış bir komut sağlamalısınız.",
+      history: {
+        title: null,
+        clearAll: null,
+        noHistory: null,
+        restore: null,
+        delete: null,
+        deleteConfirm: null,
+        clearAllConfirm: null,
+        expand: null,
+      },
     },
     refusal: {
       title: "Sorgu Modu Ret Yanıtı",
@@ -677,6 +687,10 @@ const TRANSLATIONS = {
         description: null,
       },
       auto_speak: {
+        title: null,
+        description: null,
+      },
+      spellcheck: {
         title: null,
         description: null,
       },
