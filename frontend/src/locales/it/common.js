@@ -225,6 +225,16 @@ const TRANSLATIONS = {
       title: "Prompt",
       description:
         "Il prompt che verrà utilizzato in quest'area di lavoro. Definisci il contesto e le istruzioni affinché l'IA generi una risposta. Dovresti fornire un prompt elaborato con cura in modo che l'IA possa generare una risposta pertinente e accurata.",
+      history: {
+        title: null,
+        clearAll: null,
+        noHistory: null,
+        restore: null,
+        delete: null,
+        deleteConfirm: null,
+        clearAllConfirm: null,
+        expand: null,
+      },
     },
     refusal: {
       title: "Risposta al rifiuto nella modalità di query",
@@ -675,6 +685,10 @@ const TRANSLATIONS = {
         description: null,
       },
       auto_speak: {
+        title: null,
+        description: null,
+      },
+      spellcheck: {
         title: null,
         description: null,
       },

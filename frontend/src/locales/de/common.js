@@ -224,6 +224,16 @@ const TRANSLATIONS = {
       title: "Prompt",
       description:
         "Der Prompt, der in diesem Arbeitsbereich verwendet wird. Definieren Sie den Kontext und die Anweisungen für die KI, um eine Antwort zu generieren. Sie sollten einen sorgfältig formulierten Prompt bereitstellen, damit die KI eine relevante und genaue Antwort generieren kann.",
+      history: {
+        title: null,
+        clearAll: null,
+        noHistory: null,
+        restore: null,
+        delete: null,
+        deleteConfirm: null,
+        clearAllConfirm: null,
+        expand: null,
+      },
     },
     refusal: {
       title: "Abfragemodus-Ablehnungsantwort",
@@ -714,6 +724,10 @@ const TRANSLATIONS = {
         description: null,
       },
       auto_speak: {
+        title: null,
+        description: null,
+      },
+      spellcheck: {
         title: null,
         description: null,
       },
