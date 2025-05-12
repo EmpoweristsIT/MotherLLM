@@ -131,6 +131,7 @@ AnythingLLM将您的文档划分为称为`workspaces` (工作区)的对象。工
 **支持的向量数据库：**
 
 - [LanceDB](https://github.com/lancedb/lancedb) （默认）
+- [PGVector](https://github.com/pgvector/pgvector)
 - [Astra DB](https://www.datastax.com/products/datastax-astra)
 - [Pinecone](https://pinecone.io)
 - [Chroma](https://trychroma.com)
@@ -219,7 +220,7 @@ _以下是一些与 AnythingLLM 兼容的应用程序，但并非由 Mintplex La
 
 </details>
 
-## 如何贡献
+## 👋 如何贡献
 
 - 创建 issue
 - 创建 PR，分支名称格式为 `<issue number>-<short name>`
