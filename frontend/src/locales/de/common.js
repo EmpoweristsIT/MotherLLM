@@ -682,6 +682,17 @@ const TRANSLATIONS = {
         " entscheiden, welche Dokumente du beobachten möchtest.",
       accept: "Alles klar, ich habe es verstanden.",
     },
+    obsidian: {
+      name: null,
+      description: null,
+      vault_location: null,
+      vault_description: null,
+      selected_files: null,
+      importing: null,
+      import_vault: null,
+      processing_time: null,
+      vault_warning: null,
+    },
   },
   chat_window: {
     welcome: "Willkommen zu deinem Arbeitsbereich.",
