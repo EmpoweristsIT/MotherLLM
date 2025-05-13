@@ -8,7 +8,7 @@ const TelemetryCooldown = new Map();
 
 const Telemetry = {
   // Write-only key. It can't read events or any of your other data, so it's safe to use in public apps.
-  pubkey: "phc_9qu7QLpV8L84P3vFmEiZxL020t2EqIubP7HHHxrSsqS",
+  pubkey: "phc_7UiAc12HroaaB8qwOfcaqnEGs8VHb8918lgj8V901VS",
   stubDevelopmentEvents: true, // [DO NOT TOUCH] Core team only.
   label: "telemetry_id",
   /* 
