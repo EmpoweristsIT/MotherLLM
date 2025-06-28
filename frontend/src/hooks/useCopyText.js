@@ -8,21 +8,17 @@ export default function useCopyText(delay = 2500) {
     if (!markdown) return;
 
     try {
-      // Convert Markdown to HTML
-      let html = marked.parse(markdown);
-
-      // Trim excessive spacing by replacing <p> with inline formatting
-      html = html
-        .replace(/<\/p>\s*<p>/g, '<br><br>') // paragraph to break
-        .replace(/^<p>/, '')                // remove leading <p>
-        .replace(/<\/p>$/, '')              // remove trailing </p>
-        .replace(/<\/?p>/g, '');            // strip any remaining <p>
+      // Convert Markdown to HTML with proper breaks and list support
+      let html = marked.parse(markdown, { breaks: true });
 
       // Optional: wrap in minimal formatting container
-      const styledHTML = `<div style="font-family: sans-serif; line-height: 1.4;">${html}</div>`;
+      const styledHTML = `<div style="font-family: sans-serif; line-height: 1.6;">${html}</div>`;
 
-      // Clean plain text fallback
-      const plainText = markdown.replace(/[*_`#>~\-]/g, '').trim();
+      // Plain text fallback: remove only markdown symbols, preserve line breaks
+      const plainText = markdown
+        .replace(/[*_`#>~\-]+(?=\s|$)/gm, "") // remove markdown characters
+        .replace(/\n{2,}/g, '\n\n') // preserve paragraph breaks
+        .trim();
 
       if (navigator.clipboard?.write) {
         await navigator.clipboard.write([
