@@ -151,7 +151,7 @@ export default function ChatContainer({ workspace, knownHistory = [] }) {
           content: "",
           role: "assistant",
           pending: true,
-          userMessage: text,
+          userMessage: command,
           attachments,
           animate: true,
         },
@@ -160,7 +160,7 @@ export default function ChatContainer({ workspace, knownHistory = [] }) {
       prevChatHistory = [
         ...chatHistory,
         {
-          content: text,
+          content: command,
           role: "user",
           attachments,
         },
@@ -168,7 +168,7 @@ export default function ChatContainer({ workspace, knownHistory = [] }) {
           content: "",
           role: "assistant",
           pending: true,
-          userMessage: text,
+          userMessage: command,
           animate: true,
         },
       ];
@@ -210,6 +210,7 @@ export default function ChatContainer({ workspace, knownHistory = [] }) {
         workspaceSlug: workspace.slug,
         threadSlug,
         prompt: promptMessage.userMessage,
+        mode: workspace.chatMode || "chat",
         chatHandler: (chatResult) =>
           handleChat(
             chatResult,
@@ -322,6 +323,7 @@ export default function ChatContainer({ workspace, knownHistory = [] }) {
           isStreaming={loadingResponse}
           sendCommand={sendCommand}
           attachments={files}
+          workspace={workspace}
         />
       </DnDFileUploaderWrapper>
       <ChatTooltips />

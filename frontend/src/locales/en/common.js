@@ -303,6 +303,10 @@ const TRANSLATIONS = {
         only: "only",
         "desc-end": "if document context is found.",
       },
+      agent: {
+        title: "Agent",
+        desc: "will use available agents and tools to assist with your request.",
+      },
     },
     history: {
       title: "Chat History",
