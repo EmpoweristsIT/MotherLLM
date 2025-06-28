@@ -22,7 +22,7 @@
     // Terraform support
     "ghcr.io/devcontainers/features/terraform:1": {},
     // Just a wrap to install needed packages
-    "ghcr.io/devcontainers-contrib/features/apt-packages:1": {
+    "ghcr.io/devcontainers-extra/features/apt-packages:1": {
       // Dependencies copied from ../docker/Dockerfile plus some dev stuff
       "packages": "build-essential ca-certificates curl ffmpeg fonts-liberation git gnupg htop less libayatana-appindicator1 libasound2 libatk-bridge2.0-0 libatk1.0-0 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc-s1 libgfortran5 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 locales lsb-release procps tzdata wget xdg-utils"
     }
