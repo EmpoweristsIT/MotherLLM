@@ -1,0 +1,15 @@
+version: "3.9"
+
+name: motherllm
+
+services:
+  ssologin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    env_file:
+      - .env
+    container_name: ssologin
