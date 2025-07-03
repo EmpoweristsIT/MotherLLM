@@ -248,6 +248,8 @@ const TRANSLATIONS = {
       query: "query",
       "desc-end":
         "è attiva, potresti voler restituire una risposta di rifiuto personalizzata quando non viene trovato alcun contesto.",
+      "tooltip-title": null,
+      "tooltip-description": null,
     },
     temperature: {
       title: "Temperatura LLM",

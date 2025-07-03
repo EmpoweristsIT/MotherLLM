@@ -246,6 +246,8 @@ const TRANSLATIONS = {
       query: "query",
       "desc-end":
         "mode, you may want to return a custom refusal response when no context is found.",
+      "tooltip-title": null,
+      "tooltip-description": null,
     },
     temperature: {
       title: "LLM Temperature",

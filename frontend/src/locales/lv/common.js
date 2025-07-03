@@ -339,6 +339,8 @@ const TRANSLATIONS = {
       query: "vaicājuma",
       "desc-end":
         "režīmā, jūs varētu vēlēties atgriezt pielāgotu atteikuma atbildi, kad konteksts nav atrasts.",
+      "tooltip-title": null,
+      "tooltip-description": null,
     },
     temperature: {
       title: "LLM Temperatūra",
