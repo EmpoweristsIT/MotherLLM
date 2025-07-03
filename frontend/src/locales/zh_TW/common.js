@@ -238,6 +238,8 @@ const TRANSLATIONS = {
       "desc-start": "在",
       query: "查詢",
       "desc-end": "模式下，當找不到內容時，您可能需要傳回自訂的拒絕回應。",
+      "tooltip-title": null,
+      "tooltip-description": null,
     },
     temperature: {
       title: "LLM 溫度值",
@@ -761,8 +763,8 @@ const TRANSLATIONS = {
         description: "自動朗讀 AI 的回應內容",
       },
       spellcheck: {
-        title: null,
-        description: null,
+        title: "拼字檢查功能",
+        description: "在聊天輸入框中啟用或停用拼字檢查",
       },
     },
     items: {
