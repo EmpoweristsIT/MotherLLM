@@ -11,7 +11,7 @@ const {
   normalizePath,
   isWithin,
 } = require("../../../utils/files");
-const { reqBody } = require("../../../utils/http");
+const { reqBody, safeJsonParse } = require("../../../utils/http");
 const { EventLogs } = require("../../../models/eventLogs");
 const { CollectorApi } = require("../../../utils/collectorApi");
 const fs = require("fs");
@@ -32,7 +32,7 @@ function apiDocumentEndpoints(app) {
     async (request, response) => {
       /*
     #swagger.tags = ['Documents']
-    #swagger.description = 'Upload a new file to AnythingLLM to be parsed and prepared for embedding.'
+    #swagger.description = 'Upload a new file to AnythingLLM to be parsed and prepared for embedding, with optional metadata.'
     #swagger.requestBody = {
       description: 'File to be uploaded.',
       required: true,
@@ -50,6 +50,11 @@ function apiDocumentEndpoints(app) {
               addToWorkspaces: {
                 type: 'string',
                 description: 'comma-separated text-string of workspace slugs to embed the document into post-upload. eg: workspace1,workspace2',
+              },
+              metadata: {
+                type: 'object',
+                description: 'Key:Value pairs of metadata to attach to the document in JSON Object format. Only specific keys are allowed - see example.',
+                example: { 'title': 'Custom Title', 'docAuthor': 'Author Name', 'description': 'A brief description', 'docSource': 'Source of the document' }
               }
             },
             required: ['file']
@@ -94,7 +99,12 @@ function apiDocumentEndpoints(app) {
       try {
         const Collector = new CollectorApi();
         const { originalname } = request.file;
-        const { addToWorkspaces = "" } = reqBody(request);
+        const { addToWorkspaces = "", metadata: _metadata = {} } =
+          reqBody(request);
+        const metadata =
+          typeof _metadata === "string"
+            ? safeJsonParse(_metadata, {})
+            : _metadata;
         const processingOnline = await Collector.online();
 
         if (!processingOnline) {
@@ -108,14 +118,16 @@ function apiDocumentEndpoints(app) {
           return;
         }
 
-        const { success, reason, documents } =
-          await Collector.processDocument(originalname);
+        const { success, reason, documents } = await Collector.processDocument(
+          originalname,
+          metadata
+        );
+
         if (!success) {
-          response
+          return response
             .status(500)
             .json({ success: false, error: reason, documents })
             .end();
-          return;
         }
 
         Collector.log(
@@ -154,7 +166,7 @@ function apiDocumentEndpoints(app) {
         example: 'my-folder'
       }
       #swagger.requestBody = {
-        description: 'File to be uploaded.',
+        description: 'File to be uploaded, with optional metadata.',
         required: true,
         content: {
           "multipart/form-data": {
@@ -170,6 +182,11 @@ function apiDocumentEndpoints(app) {
                 addToWorkspaces: {
                   type: 'string',
                   description: 'comma-separated text-string of workspace slugs to embed the document into post-upload. eg: workspace1,workspace2',
+                },
+                metadata: {
+                  type: 'object',
+                  description: 'Key:Value pairs of metadata to attach to the document in JSON Object format. Only specific keys are allowed - see example.',
+                  example: { 'title': 'Custom Title', 'docAuthor': 'Author Name', 'description': 'A brief description', 'docSource': 'Source of the document' }
                 }
               }
             }
@@ -224,7 +241,13 @@ function apiDocumentEndpoints(app) {
       */
       try {
         const { originalname } = request.file;
-        const { addToWorkspaces = "" } = reqBody(request);
+        const { addToWorkspaces = "", metadata: _metadata = {} } =
+          reqBody(request);
+        const metadata =
+          typeof _metadata === "string"
+            ? safeJsonParse(_metadata, {})
+            : _metadata;
+
         let folder = request.params?.folderName || "custom-documents";
         folder = normalizePath(folder);
         const targetFolderPath = path.join(documentsPath, folder);
@@ -239,25 +262,25 @@ function apiDocumentEndpoints(app) {
         const Collector = new CollectorApi();
         const processingOnline = await Collector.online();
         if (!processingOnline) {
-          response
+          return response
             .status(500)
             .json({
               success: false,
               error: `Document processing API is not online. Document ${originalname} will not be processed automatically.`,
             })
             .end();
-          return;
         }
 
-        // Process the uploaded document
-        const { success, reason, documents } =
-          await Collector.processDocument(originalname);
+        // Process the uploaded document with metadata
+        const { success, reason, documents } = await Collector.processDocument(
+          originalname,
+          metadata
+        );
         if (!success) {
-          response
+          return response
             .status(500)
             .json({ success: false, error: reason, documents })
             .end();
-          return;
         }
 
         // For each processed document, check if it is already in the desired folder.
@@ -317,7 +340,7 @@ function apiDocumentEndpoints(app) {
     #swagger.tags = ['Documents']
     #swagger.description = 'Upload a valid URL for AnythingLLM to scrape and prepare for embedding. Optionally, specify a comma-separated list of workspace slugs to embed the document into post-upload.'
     #swagger.requestBody = {
-      description: 'Link of web address to be scraped and optionally a comma-separated list of workspace slugs to embed the document into post-upload.',
+      description: 'Link of web address to be scraped and optionally a comma-separated list of workspace slugs to embed the document into post-upload, and optional metadata.',
       required: true,
       content: {
           "application/json": {
@@ -329,6 +352,12 @@ function apiDocumentEndpoints(app) {
                 "scraperHeaders": {
                   "Authorization": "Bearer token123",
                   "My-Custom-Header": "value"
+                },
+                "metadata": {
+                  "title": "Custom Title",
+                  "docAuthor": "Author Name",
+                  "description": "A brief description",
+                  "docSource": "Source of the document"
                 }
               }
             }
@@ -376,30 +405,34 @@ function apiDocumentEndpoints(app) {
           link,
           addToWorkspaces = "",
           scraperHeaders = {},
+          metadata: _metadata = {},
         } = reqBody(request);
+        const metadata =
+          typeof _metadata === "string"
+            ? safeJsonParse(_metadata, {})
+            : _metadata;
         const processingOnline = await Collector.online();
 
         if (!processingOnline) {
-          response
+          return response
             .status(500)
             .json({
               success: false,
               error: `Document processing API is not online. Link ${link} will not be processed automatically.`,
             })
             .end();
-          return;
         }
 
         const { success, reason, documents } = await Collector.processLink(
           link,
-          scraperHeaders
+          scraperHeaders,
+          metadata
         );
         if (!success) {
-          response
+          return response
             .status(500)
             .json({ success: false, error: reason, documents })
             .end();
-          return;
         }
 
         Collector.log(
@@ -491,20 +524,23 @@ function apiDocumentEndpoints(app) {
         const requiredMetadata = ["title"];
         const {
           textContent,
-          metadata = {},
+          metadata: _metadata = {},
           addToWorkspaces = "",
         } = reqBody(request);
+        const metadata =
+          typeof _metadata === "string"
+            ? safeJsonParse(_metadata, {})
+            : _metadata;
         const processingOnline = await Collector.online();
 
         if (!processingOnline) {
-          response
+          return response
             .status(500)
             .json({
               success: false,
               error: `Document processing API is not online. Request will not be processed.`,
             })
             .end();
-          return;
         }
 
         if (
@@ -513,7 +549,7 @@ function apiDocumentEndpoints(app) {
               Object.keys(metadata).includes(reqKey) && !!metadata[reqKey]
           )
         ) {
-          response
+          return response
             .status(422)
             .json({
               success: false,
@@ -522,18 +558,16 @@ function apiDocumentEndpoints(app) {
                 .join(", ")}`,
             })
             .end();
-          return;
         }
 
         if (!textContent || textContent?.length === 0) {
-          response
+          return response
             .status(422)
             .json({
               success: false,
               error: `The 'textContent' key cannot have an empty value.`,
             })
             .end();
-          return;
         }
 
         const { success, reason, documents } = await Collector.processRawText(
@@ -541,11 +575,10 @@ function apiDocumentEndpoints(app) {
           metadata
         );
         if (!success) {
-          response
+          return response
             .status(500)
             .json({ success: false, error: reason, documents })
             .end();
-          return;
         }
 
         Collector.log(
@@ -663,7 +696,11 @@ function apiDocumentEndpoints(app) {
       try {
         const { folderName } = request.params;
         const result = await getDocumentsByFolder(folderName);
-        response.status(200).json(result);
+        response.status(result.code).json({
+          folder: result.folder,
+          documents: result.documents,
+          error: result.error,
+        });
       } catch (e) {
         console.error(e.message, e);
         response.sendStatus(500).end();
