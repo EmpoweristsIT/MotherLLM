@@ -83,7 +83,7 @@ const KEY_MAPPING = {
   },
   LMStudioTokenLimit: {
     envKey: "LMSTUDIO_MODEL_TOKEN_LIMIT",
-    checks: [nonZero],
+    checks: [],
   },
 
   // LocalAI Settings
@@ -114,7 +114,7 @@ const KEY_MAPPING = {
   },
   OllamaLLMTokenLimit: {
     envKey: "OLLAMA_MODEL_TOKEN_LIMIT",
-    checks: [nonZero],
+    checks: [],
   },
   OllamaLLMPerformanceMode: {
     envKey: "OLLAMA_PERFORMANCE_MODE",
@@ -705,6 +705,28 @@ const KEY_MAPPING = {
     checks: [isNotEmpty],
   },
 
+  // Foundry Options
+  FoundryBasePath: {
+    envKey: "FOUNDRY_BASE_PATH",
+    checks: [isNotEmpty],
+  },
+  FoundryModelPref: {
+    envKey: "FOUNDRY_MODEL_PREF",
+    checks: [isNotEmpty],
+    postUpdate: [
+      // On new model selection, re-cache the context windows
+      async (_, prevValue, __) => {
+        const { FoundryLLM } = require("../AiProviders/foundry");
+        await FoundryLLM.unloadModelFromEngine(prevValue);
+        await FoundryLLM.cacheContextWindows(true);
+      },
+    ],
+  },
+  FoundryModelTokenLimit: {
+    envKey: "FOUNDRY_MODEL_TOKEN_LIMIT",
+    checks: [],
+  },
+
   // CometAPI Options
   CometApiLLMApiKey: {
     envKey: "COMETAPI_LLM_API_KEY",
@@ -828,6 +850,7 @@ function supportedLLM(input = "") {
     "dpais",
     "moonshotai",
     "cometapi",
+    "foundry",
   ].includes(input);
   return validSelection ? null : `${input} is not a valid LLM provider.`;
 }
@@ -1170,6 +1193,9 @@ function dumpENV() {
 
     // Specify Chromium args for collector
     "ANYTHINGLLM_CHROMIUM_ARGS",
+
+    // Allow setting a custom response timeout for Ollama
+    "OLLAMA_RESPONSE_TIMEOUT",
   ];
 
   // Simple sanitization of each value to prevent ENV injection via newline or quote escaping.
