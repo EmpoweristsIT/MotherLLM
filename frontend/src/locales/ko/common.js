@@ -537,6 +537,10 @@ const TRANSLATIONS = {
         icon: "아이콘",
         link: "링크",
       },
+      "render-html": {
+        title: null,
+        description: null,
+      },
     },
   },
   api: {

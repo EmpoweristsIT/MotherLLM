@@ -236,6 +236,7 @@ export default function ChatContainer({ workspace, knownHistory = [] }) {
         const socket = new WebSocket(
           `${websocketURI()}/api/agent-invocation/${socketId}`
         );
+        socket.supportsAgentStreaming = false;
 
         window.addEventListener(ABORT_STREAM_EVENT, () => {
           // Only end agent session if we're not in agent chat mode
@@ -248,7 +249,7 @@ export default function ChatContainer({ workspace, knownHistory = [] }) {
         socket.addEventListener("message", (event) => {
           setLoadingResponse(true);
           try {
-            handleSocketResponse(event, setChatHistory);
+            handleSocketResponse(socket, event, setChatHistory);
           } catch (e) {
             console.error("Failed to parse data");
             window.dispatchEvent(new CustomEvent(AGENT_SESSION_END));
