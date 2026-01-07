@@ -58,7 +58,7 @@ WORKDIR /app
 # so web-scraping would be broken in arm docker containers unless we patch it
 # by manually installing a compatible chromedriver.
 RUN echo "Need to patch Puppeteer x Chromium support for ARM86 - installing dep!" && \
-    curl https://playwright.azureedge.net/builds/chromium/1088/chromium-linux-arm64.zip -o chrome-linux.zip && \
+    curl -fSL https://webassets.anythingllm.com/chromium-1088-linux-arm64.zip -o chrome-linux.zip && \
     unzip chrome-linux.zip && \
     rm -rf chrome-linux.zip
 
@@ -161,15 +161,11 @@ USER anythingllm
 FROM backend-build AS production-build
 WORKDIR /app
 COPY --chown=anythingllm:anythingllm --from=frontend-build /app/frontend/dist /app/server/public
-USER root
-RUN chown -R anythingllm:anythingllm /app/server && \
-    chown -R anythingllm:anythingllm /app/collector
-USER anythingllm
 
 # Setup the environment
 ENV NODE_ENV=production
 ENV ANYTHING_LLM_RUNTIME=docker
-ENV DEPLOYMENT_VERSION=1.8.5
+ENV DEPLOYMENT_VERSION=1.9.1
 
 # Setup the healthcheck
 HEALTHCHECK --interval=1m --timeout=10s --start-period=1m \

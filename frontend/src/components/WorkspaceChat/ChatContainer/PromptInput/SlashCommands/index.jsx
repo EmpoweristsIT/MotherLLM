@@ -5,6 +5,7 @@ import ResetCommand from "./reset";
 import EndAgentSession from "./endAgentSession";
 import SlashPresets from "./SlashPresets";
 import { useTranslation } from "react-i18next";
+import { useSlashCommandKeyboardNavigation } from "@/hooks/useSlashCommandKeyboardNavigation";
 
 export default function SlashCommandsButton({ showing, setShowSlashCommand }) {
   const { t } = useTranslation();
@@ -40,6 +41,8 @@ export function SlashCommands({
   workspace,
 }) {
   const cmdRef = useRef(null);
+  useSlashCommandKeyboardNavigation({ showing });
+
   useEffect(() => {
     function listenForOutsideClick() {
       if (!showing || !cmdRef.current) return false;

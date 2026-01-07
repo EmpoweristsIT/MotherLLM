@@ -13,6 +13,8 @@ export default function EndAgentSession({
 
   return (
     <button
+      type="button"
+      data-slash-command="/exit"
       onClick={() => {
         setShowing(false);
         sendCommand({ text: "/exit", autoSubmit: true });

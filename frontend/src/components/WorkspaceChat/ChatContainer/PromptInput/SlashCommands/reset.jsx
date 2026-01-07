@@ -11,6 +11,8 @@ export default function ResetCommand({ setShowing, sendCommand, workspace }) {
 
   return (
     <button
+      type="button"
+      data-slash-command="/reset"
       onClick={() => {
         setShowing(false);
         sendCommand({ text: "/reset", autoSubmit: true });
