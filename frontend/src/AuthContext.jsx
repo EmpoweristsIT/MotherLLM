@@ -1,8 +1,13 @@
 import React, { useState, createContext } from "react";
-import { AUTH_TIMESTAMP, AUTH_TOKEN, AUTH_USER } from "@/utils/constants";
+import {
+  AUTH_TIMESTAMP,
+  AUTH_TOKEN,
+  AUTH_USER,
+  USER_PROMPT_INPUT_MAP,
+} from "@/utils/constants";
 
 export const AuthContext = createContext(null);
-export function ContextWrapper(props) {
+export function AuthProvider(props) {
   const localUser = localStorage.getItem(AUTH_USER);
   const localAuthToken = localStorage.getItem(AUTH_TOKEN);
   const [store, setStore] = useState({
@@ -20,6 +25,7 @@ export function ContextWrapper(props) {
       localStorage.removeItem(AUTH_USER);
       localStorage.removeItem(AUTH_TOKEN);
       localStorage.removeItem(AUTH_TIMESTAMP);
+      localStorage.removeItem(USER_PROMPT_INPUT_MAP);
       setStore({ user: null, authToken: null });
     },
   });
