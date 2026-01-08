@@ -1,3 +1,5 @@
+const { validYoutubeVideoUrl } = require("../../../url");
+
 /*
  * This is just a custom implementation of the Langchain JS YouTubeLoader class
  * as the dependency for YoutubeTranscript is quite fickle and its a rat race to keep it up
@@ -23,14 +25,9 @@ class YoutubeLoader {
    * @returns The videoId of the YouTube video.
    */
   static getVideoID(url) {
-    const match = url.match(
-      /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#&?]*).*/
-    );
-    if (match !== null && match[1].length === 11) {
-      return match[1];
-    } else {
-      throw new Error("Failed to get youtube video id from the url");
-    }
+    const videoId = validYoutubeVideoUrl(url, true);
+    if (videoId) return videoId;
+    throw new Error("Failed to get youtube video id from the url");
   }
 
   /**
@@ -57,13 +54,15 @@ class YoutubeLoader {
       source: this.#videoId,
     };
     try {
-      const { YoutubeTranscript } = require("./youtube-transcript");
-      transcript = await YoutubeTranscript.fetchTranscript(this.#videoId, {
+      const fetchTranscript = await import("youtube-transcript-plus").then(
+        (module) => module.fetchTranscript
+      );
+      const transcriptSegments = await fetchTranscript(this.#videoId, {
         lang: this.#language,
       });
-      if (!transcript) {
+      if (!transcriptSegments || transcriptSegments.length === 0)
         throw new Error("Transcription not found");
-      }
+      transcript = this.#convertTranscriptSegmentsToText(transcriptSegments);
       if (this.#addVideoInfo) {
         const { Innertube } = require("youtubei.js");
         const youtube = await Innertube.create();
@@ -84,6 +83,16 @@ class YoutubeLoader {
         metadata,
       },
     ];
+  }
+
+  #convertTranscriptSegmentsToText(transcriptSegments) {
+    return transcriptSegments
+      .map((segment) =>
+        typeof segment === "string" ? segment : segment.text || ""
+      )
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
   }
 }
 
