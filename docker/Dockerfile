@@ -13,7 +13,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Install system dependencies
 # hadolint ignore=DL3008,DL3013
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends --fix-missing \
         unzip curl gnupg libgfortran5 libgbm1 tzdata netcat-openbsd \
         libasound2t64 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 \
         libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libx11-6 libx11-xcb1 libxcb1 \
@@ -82,7 +82,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Install system dependencies
 # hadolint ignore=DL3008,DL3013
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends --fix-missing \
         curl gnupg libgfortran5 libgbm1 tzdata netcat-openbsd \
         libasound2t64 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 \
         libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libx11-6 libx11-xcb1 libxcb1 \
